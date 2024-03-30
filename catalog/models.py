@@ -1,4 +1,4 @@
-from datetime import date
+# from datetime import date
 
 from django.db import models
 
@@ -27,7 +27,7 @@ class Product(models.Model):
     created_at = models.DateField(auto_now_add=True, verbose_name='Дата создания (записи в БД)')
     updated_at = models.DateField(auto_now=True, verbose_name='ата последнего изменения (записи в БД)')
 
-    manufactured_at = models.DateField(default=date.today, verbose_name='Дата производства продукта')
+    # manufactured_at = models.DateField(default=date.today, verbose_name='Дата производства продукта')
 
     def __str__(self):
         return f"{self.product_name}, {self.price} р."
