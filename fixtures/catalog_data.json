@@ -1,0 +1,31 @@
+[
+  {
+    "model": "catalog.product",
+    "pk": 4,
+    "fields": {
+      "product_name": "Набор тарелок",
+      "product_description": "Обычные белые тарелки",
+      "product_image": "",
+      "category": 8,
+      "price": "100.00",
+      "created_at": "2024-03-30",
+      "updated_at": "2024-03-30"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 7,
+    "fields": {
+      "category_name": "Товары для Дачи",
+      "category_description": "Дачная мебель, садово-огородные предметы и инвентарь"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 8,
+    "fields": {
+      "category_name": "Посуда",
+      "category_description": "Чашки, вилки, тарелки и все остальное"
+    }
+  }
+]
