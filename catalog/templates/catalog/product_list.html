@@ -4,6 +4,7 @@
 <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
     <h1 class="display-4">Skystore</h1>
     <p class="lead">Skystore - магазин товаров для людей</p>
+                    <a class="p-2 btn btn-outline-primary" href="/create/">Создать товар</a>
 </div>
 
 <div class="container">
@@ -20,9 +21,18 @@
                     <h1 class="card-title pricing-card-title">{{ object.price }} руб</h1>
                     <ul class="list-unstyled mt-3 mb-4 text-start m-3">
                         <li>{{ object.product_description|slice:100 }}</li>
+                        <li>Текущие активные версии:</li>
+                        {% for version in object.version.all %}
+                        {% if version.is_current_version %}
+                        <li>{{ version }}</li>
+                        {% endif %}
+                        {% endfor %}
                     </ul>
-
+                    <div class="btn-group">
                     <a class="p-2 btn btn-outline-primary" href="/{{ object.pk }}/">Подробнее</a>
+                    <a class="p-2 btn btn-outline-primary" href="/update/{{ object.pk }}/">Изменить</a>
+                    <a class="p-2 btn btn-outline-primary" href="/delete/{{ object.pk }}/">Удалить</a>
+                </div>
                 </div>
 
             </div>
