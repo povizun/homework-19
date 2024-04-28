@@ -2,6 +2,7 @@ from django.urls import path
 
 from blog.views import BlogPostDetailView, BlogPostListView, BlogPostDeleteView, BlogPostCreateView, BlogPostUpdateView
 from blog.apps import BlogConfig
+
 app_name = BlogConfig.name
 
 urlpatterns = [
