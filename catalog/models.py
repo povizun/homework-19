@@ -2,6 +2,8 @@
 
 from django.db import models
 
+from users.models import User
+
 NULLABLE = {'blank': True, 'null': True}
 
 
@@ -26,6 +28,9 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=9, decimal_places=2, verbose_name='Цена за покупку')
     created_at = models.DateField(auto_now_add=True, verbose_name='Дата создания (записи в БД)')
     updated_at = models.DateField(auto_now=True, verbose_name='ата последнего изменения (записи в БД)')
+
+    creator = models.ForeignKey(User, verbose_name='Создатель', help_text='Укажите создателя товара', **NULLABLE,
+                                on_delete=models.SET_NULL)
 
     # manufactured_at = models.DateField(default=date.today, verbose_name='Дата производства продукта')
 

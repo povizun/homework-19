@@ -1,7 +1,7 @@
 from django.db import models
 
-NULLABLE = {'blank': True, 'null': True}
 
+NULLABLE = {'blank': True, 'null': True}
 
 class BlogPost(models.Model):
     title = models.CharField(max_length=150, verbose_name='заголовок поста')
