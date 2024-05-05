@@ -1,6 +1,7 @@
 import secrets
 import string
 
+from django.forms import ValidationError
 from django.http import HttpResponseRedirect
 from django.contrib.auth.views import PasswordResetView
 from django.shortcuts import get_object_or_404, redirect
@@ -60,21 +61,17 @@ class UserPasswordResetView(PasswordResetView):
 
     def form_valid(self, form):
         if self.request.method == "POST":
-            email = self.request.POST['email']
-            try:
-                user = User.objects.get(email=email)
-                character = string.ascii_letters + string.digits
-                password = "".join(secrets.choice(character) for i in range(12))
-                user.set_password(password)
-                user.save()
-                send_mail(
-                    subject="Восстановление пароля SkyStore",
-                    message=f"Ваш пароль {password}",
-                    from_email=EMAIL_HOST_USER,
-                    recipient_list=[user.email]
-                )
-                return HttpResponseRedirect(reverse('users:login'))
-            except User.DoesNotExist:
-                return self.render_to_response('user:register')
+            user = form.cleaned_data['email']
+            character = string.ascii_letters + string.digits
+            password = "".join(secrets.choice(character) for i in range(12))
+            user.set_password(password)
+            user.save()
+            send_mail(
+                subject="Восстановление пароля SkyStore",
+                message=f"Ваш пароль {password}",
+                from_email=EMAIL_HOST_USER,
+                recipient_list=[user.email]
+            )
+            return HttpResponseRedirect(reverse('users:login'))
         return super().form_valid(form)
 

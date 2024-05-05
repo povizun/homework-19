@@ -28,7 +28,7 @@ class ContactsView(TemplateView):
     template_name = 'catalog/contacts.html'
 
 
-class ProductCreateView(CreateView, LoginRequiredMixin):
+class ProductCreateView(LoginRequiredMixin, CreateView):
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy('catalog:index')
@@ -46,7 +46,7 @@ class ProductCreateView(CreateView, LoginRequiredMixin):
         formset = self.get_context_data()['formset']
         self.object = form.save()
         user = self.request.user
-        self.object.owner = user
+        self.object.creator = user
         self.object.save()
         if formset.is_valid():
             formset.instance = self.object
@@ -56,7 +56,7 @@ class ProductCreateView(CreateView, LoginRequiredMixin):
             return self.render_to_response(self.get_context_data(form=form, formset=formset))
 
 
-class ProductUpdateView(UpdateView, LoginRequiredMixin):
+class ProductUpdateView(LoginRequiredMixin, UpdateView):
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy('catalog:index')
@@ -81,6 +81,6 @@ class ProductUpdateView(UpdateView, LoginRequiredMixin):
             return self.render_to_response(self.get_context_data(form=form, formset=formset))
 
 
-class ProductDeleteView(DeleteView, LoginRequiredMixin):
+class ProductDeleteView(LoginRequiredMixin, DeleteView):
     model = Product
     success_url = reverse_lazy('catalog:index')

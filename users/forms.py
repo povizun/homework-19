@@ -25,3 +25,11 @@ class UserProfileForm(UserChangeForm):
 
 class RecoveryForm(PasswordResetForm):
     pass
+
+    def clean_email(self):
+        cleaned_data = self.cleaned_data['email']
+        try:
+            cleaned_data = User.objects.filter(is_active=True).get(email=cleaned_data)
+        except User.DoesNotExist:
+            raise forms.ValidationError('Пользователя с такой почтой не существует или он не активирован')
+        return cleaned_data
