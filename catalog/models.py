@@ -31,6 +31,7 @@ class Product(models.Model):
 
     creator = models.ForeignKey(User, verbose_name='Создатель', help_text='Укажите создателя товара', **NULLABLE,
                                 on_delete=models.SET_NULL)
+    is_published = models.BooleanField(default=False, verbose_name='опубликовано')
 
     # manufactured_at = models.DateField(default=date.today, verbose_name='Дата производства продукта')
 
@@ -41,6 +42,11 @@ class Product(models.Model):
         verbose_name = 'Продукт'
         verbose_name_plural = 'Продукты'
         ordering = ('product_name',)
+        permissions = [
+            ("can_edit_is_published", "Can edit is_published"),
+            ("can_edit_category", "Can edit category"),
+            ("can_edit_product_description", "Can edit product_description")
+        ]
 
 
 class Version(models.Model):
