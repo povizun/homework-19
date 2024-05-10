@@ -49,3 +49,15 @@ class ProductForm(StyleFormMixin, forms.ModelForm):
         cleaned_data = self.check_words(self.cleaned_data['product_description'])
 
         return cleaned_data
+
+
+class ProductModeratorForm(ProductForm):
+    class Meta:
+        model = Product
+        fields = ('product_description', 'category', 'is_published',)
+
+
+class ProductModeratorCreatorForm(ProductForm):
+    class Meta:
+        model = Product
+        fields = ('product_name', 'product_description', 'product_image', 'category', 'price', 'is_published',)

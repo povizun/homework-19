@@ -12,10 +12,14 @@
 <div class="container">
     <div class="row text-center">
         {% for object in object_list %}
+        {% if perms.catalog.can_edit_is_published or object.is_published or user == object.creator %}
         <div class="col-3">
 
             <div class="card mb-4 box-shadow">
                 <div class="card-header">
+                    {% if not object.is_published %}
+                    <h4 class="my-0 text-danger font-weight-normal">Не опубликовано</h4>
+                    {% endif %}
                     <h4 class="my-0 font-weight-normal">{{ object }}</h4>
                 </div>
                 <img class="card-img-top" src="{% mymedia object.product_image %}">
@@ -33,7 +37,10 @@
                     <div class="btn-group">
                         <a class="p-2 btn btn-outline-primary" href="/{{ object.pk }}/">Подробнее</a>
                         {% if user.is_authenticated %}
+                        {% if perms.catalog.can_edit_is_published and perms.catalog.can_edit_category and
+                        perms.catalog.can_edit_product_description or user == object.creator %}
                         <a class="p-2 btn btn-outline-primary" href="/update/{{ object.pk }}/">Изменить</a>
+                        {% endif %}
                         <a class="p-2 btn btn-outline-primary" href="/delete/{{ object.pk }}/">Удалить</a>
                         {% endif %}
                     </div>
@@ -42,6 +49,7 @@
             </div>
 
         </div>
+        {% endif %}
         {% endfor %}
     </div>
 </div>
