@@ -37,8 +37,7 @@
                     <div class="btn-group">
                         <a class="p-2 btn btn-outline-primary" href="/{{ object.pk }}/">Подробнее</a>
                         {% if user.is_authenticated %}
-                        {% if perms.catalog.can_edit_is_published and perms.catalog.can_edit_category and
-                        perms.catalog.can_edit_product_description or user == object.creator %}
+                        {% if perms.catalog.can_edit_is_published and perms.catalog.can_edit_category and perms.catalog.can_edit_product_description or user == object.creator %}
                         <a class="p-2 btn btn-outline-primary" href="/update/{{ object.pk }}/">Изменить</a>
                         {% endif %}
                         <a class="p-2 btn btn-outline-primary" href="/delete/{{ object.pk }}/">Удалить</a>
