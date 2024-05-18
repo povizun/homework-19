@@ -12,6 +12,8 @@ psycopg2-binary = "^2.9.9"
 pillow = "^10.2.0"
 ipython = "8.18.1"
 pytils = "^0.4.1"
+redis = "^5.0.4"
+python-dotenv = "^1.0.1"
 
 
 [build-system]

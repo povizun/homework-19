@@ -5,7 +5,8 @@ from django.views.generic import ListView, DetailView, TemplateView, UpdateView,
 from django.forms import inlineformset_factory
 
 from catalog.forms import ProductForm, VersionForm, ProductModeratorForm, ProductModeratorCreatorForm
-from catalog.models import Product, Version
+from catalog.models import Product, Version, Category
+from catalog.services import get_categories_from_cache
 
 
 class ProductListView(ListView):
@@ -27,6 +28,13 @@ class ProductDetailView(DetailView):
 
 class ContactsView(TemplateView):
     template_name = 'catalog/contacts.html'
+
+
+class CategoryListView(ListView):
+    model = Category
+
+    def get_queryset(self):
+        return get_categories_from_cache()
 
 
 class ProductCreateView(LoginRequiredMixin, CreateView):
